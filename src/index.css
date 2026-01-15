@@ -1,13 +1,52 @@
 @import "tailwindcss";
 
+/* FONTS */
+@layer base { html { font-family: 'Fira Code', Helvetica, Arial, sans-serif; } }
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('./fonts/FiraCode-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fira Code';
+    src: url('./fonts/FiraCode-Bold.woff2') format('woff2');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@theme {
+  --color-blue: #90caf9;
+  --color-blue-hover: rgba(27, 27, 201, 0.5);
+  --color-secondary: #ffb74d;
+  --color-bgc: #f5f5f5;
+  --shadow-head: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
+  --shadow-paper: 0px 3px 5px -1px rgba(0,0,0,0.2),0px 6px 10px 0px rgba(0,0,0,0.14),0px 1px 18px 0px rgba(0,0,0,0.12);
+  --shadow-btn: 0px 3px 1px -2px rgba(0,0,0,0.2),0px 2px 2px 0px rgba(0,0,0,0.14),0px 1px 5px 0px rgba(0,0,0,0.12);
+  --text-md: 15px
+}
+
+*,
+ ::before,
+ ::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.25s !important;
+  scroll-behavior: auto !important;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
+  color: rgba(27, 27, 201, 0.5);
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  color: #242424;
+  background-color: #fff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -15,8 +54,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
 }
+
+
