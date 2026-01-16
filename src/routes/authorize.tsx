@@ -1,21 +1,17 @@
-import { useQuery } from '@tanstack/react-query';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { useState } from 'react';
 
-import type { IUser } from '../types/types';
+import { useGetUsers } from '../api/useGetUsers';
 
 export const Route = createFileRoute('/authorize')({
   component: AuthorizePage,
 });
 
 function AuthorizePage() {
-  const { isPending, error, data } = useQuery<
-    IUser & { token: string },
-    { username: string; password: string }
-  >({
-    queryKey: ['Login'],
-    queryFn: () => fetch('https://dummyjson.com/auth/login').then((res) => res.json()),
-  });
-
+  const [login, setLogin] = useState('');
+  const [password, setPassword] = useState('');
+  const { data, error, isPending } = useGetUsers();
+  const navigate = useNavigate();
   return (
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-h-dvh flex items-center justify-center p-2 ">
       <div className="p-8 w-full max-w-116 rounded-xl  flex flex-col shadow-paper gap-6">
@@ -26,12 +22,13 @@ function AuthorizePage() {
           <input
             className="border rounded-sm border-gray-400 focus:border-blue-400 focus:outline-none focus:border-2 hover:border-black w-100 h-14 py-4 px-3.5"
             placeholder="User Name"
-            type="text"
+            onChange={(event) => setLogin(event.target.value)}
           />
           <input
             className="border rounded-sm border-gray-400 focus:border-blue-400 focus:outline-none focus:border-2 hover:border-black w-100 h-14 py-4 px-3.5"
             placeholder="Password"
             type="password"
+            onChange={(event) => setPassword(event.target.value)}
           />
         </div>
         <button
@@ -41,8 +38,7 @@ function AuthorizePage() {
           SIGN IN
         </button>
         <p className="text-base tracking-tighter text-center">
-          Don't have an account?
-          <Link to="/registration">Let's registration</Link>
+          Don't have an account? <Link to="/registration">Let's registration</Link>
         </p>
       </div>
     </div>

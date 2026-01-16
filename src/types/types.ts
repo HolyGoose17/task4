@@ -26,10 +26,12 @@ export interface IProps {
   product: IProduct;
 }
 
-export interface ICartProduct extends Omit<IProduct, 'category' | 'tags' | 'rating'> {
-  category?: string;
-  tags?: string;
-  rating?: number;
+export interface ICart {
+  id: number;
+  title: string;
+  price: number;
+  thumbnail: string;
+  quantity: number;
 }
 
 export interface IProductCategories {
@@ -44,4 +46,8 @@ export interface IUser {
   email: string;
   firstName: string;
   lastName: string;
+}
+
+export interface ProductCardProps {
+  product: IProduct;
 }

@@ -1,11 +1,11 @@
-import { createFileRoute } from '@tanstack/react-router';
+// import { createFileRoute } from '@tanstack/react-router';
 
-export const Route = createFileRoute('/chat/$roomId')({
-  component: ChatRoomPage,
-});
+// export const Route = createFileRoute('/chat/$roomId')({
+//   component: ChatRoomPage,
+// });
 
-function ChatRoomPage() {
-  const { roomId } = Route.useParams();
-  useChat(roomId);
-  return <ChatWindow />;
-}
+// function ChatRoomPage() {
+//   const { roomId } = Route.useParams();
+//   useChat(roomId);
+//   return <ChatWindow />;
+// }

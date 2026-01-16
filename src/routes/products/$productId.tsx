@@ -1,23 +1,18 @@
-import { useQuery } from '@tanstack/react-query';
 import { createFileRoute, useParams } from '@tanstack/react-router';
 import { MdClose } from 'react-icons/md';
 
-import type { IProduct } from '../../types/types';
+import { useGetProductById } from '../../api/useGetProductById';
 
 export const Route = createFileRoute('/products/$productId')({
   component: ProductDetailsPage,
 });
 
 function ProductDetailsPage() {
-  const productId = useParams({
+  const id = useParams({
     from: '/products/$productId',
-    select: (params) => params.productId,
+    select: (params) => Number(params.productId),
   });
-
-  const { isPending, error, data } = useQuery<IProduct, never>({
-    queryKey: ['ProductId', 'ProductDetails'],
-    queryFn: () => fetch(`https://dummyjson.com/products/${productId}`).then((res) => res.json()),
-  });
+  const { data, error, isLoading } = useGetProductById(id);
 
   if (error) {
     return <div>Ошибка получения данных</div>;
@@ -25,7 +20,7 @@ function ProductDetailsPage() {
 
   return (
     <div className="mt-9/100">
-      {isPending ? (
+      {isLoading ? (
         <div className="w-full flex justify-center mt-6">
           <div>Данные прогружаются</div>
         </div>
@@ -40,20 +35,26 @@ function ProductDetailsPage() {
             <div className="relative px-8 py-8 flex-1">
               <MdClose
                 aria-label="Close details"
-                onClick={() => console.log('Переход назад')}
+                onClick={() => console.log('Watching all products')}
                 className="absolute top-32 right-32"
               />
               <h4>{data?.title}</h4>
               <h5>{data?.price}</h5>
               <div>
-                <img src="" alt="" />
+                <img src={data?.thumbnail} alt={data?.title} />
                 <h5>{data?.rating} / 5</h5>
               </div>
               <p>{data?.description}</p>
               {data?.tags && (
                 <div>
-                  {data.tags.map((tag) => (
-                    <button type="button" key={tag} aria-label={tag} className="mb-4"></button>
+                  {data.tags?.slice(0, 2).map((tag, index) => (
+                    <span
+                      key={index}
+                      aria-label={tag}
+                      className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-black"
+                    >
+                      {tag}
+                    </span>
                   ))}
                 </div>
               )}

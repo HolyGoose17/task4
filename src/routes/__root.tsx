@@ -22,14 +22,23 @@ function Layout() {
     <>
       <header className="bg-blue flex justify-between items-center h-16 px-12 shadow-head">
         <div className="flex justify-evenly gap-9">
-          <button className="cursor-pointer" onClick={handleDrawerOpen}>
-            <Link to="/products">
+          <button
+            className="cursor-pointer w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
+            onClick={handleDrawerOpen}
+          >
+            <Link
+              to="/products"
+              className="w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
+            >
               <CgDetailsMore className=" w-6 h-6" />
             </Link>
           </button>
 
-          <Link to="/">
-            <MdOutlineStore className="w-6 h-6 text-gray-600  hover:bg-gray-100 hover:rounded-1/2" />
+          <Link
+            to="/"
+            className="w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
+          >
+            <MdOutlineStore className="w-6 h-6 text-gray-600  " />
           </Link>
         </div>
         <div className="flex justify-evenly gap-4.5">
@@ -46,12 +55,12 @@ function Layout() {
           ) : (
             <>
               <Link to="/authorize" className="text-sm font-medium tracking-tight">
-                <button className="py-1.25 px-3.75 border rounded-sm border-black active:bg-gray-400">
+                <button className="py-1.5 px-4 border rounded-sm border-black active:bg-gray-400 cursor-pointer">
                   LOG IN
                 </button>
               </Link>
               <Link to="/registration" className="text-sm font-medium tracking-tight ">
-                <button className="py-1.25 px-3.75 bg-secondary rounded-sm border-inherit  shadow-btn active:bg-gray-400">
+                <button className="py-1.5 px-4 bg-secondary rounded-sm border-inherit  shadow-btn active:bg-gray-400 cursor-pointer">
                   SIGN UP
                 </button>
               </Link>

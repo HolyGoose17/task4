@@ -13,10 +13,7 @@ import { Route as RegistrationRouteImport } from './routes/registration'
 import { Route as AuthorizeRouteImport } from './routes/authorize'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ProductsIndexRouteImport } from './routes/products/index'
-import { Route as GraphqlIndexRouteImport } from './routes/graphql/index'
-import { Route as ChatIndexRouteImport } from './routes/chat/index'
 import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
-import { Route as ChatRoomIdRouteImport } from './routes/chat/$roomId'
 
 const RegistrationRoute = RegistrationRouteImport.update({
   id: '/registration',
@@ -38,24 +35,9 @@ const ProductsIndexRoute = ProductsIndexRouteImport.update({
   path: '/products/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const GraphqlIndexRoute = GraphqlIndexRouteImport.update({
-  id: '/graphql/',
-  path: '/graphql/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatIndexRoute = ChatIndexRouteImport.update({
-  id: '/chat/',
-  path: '/chat/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
   id: '/products/$productId',
   path: '/products/$productId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ChatRoomIdRoute = ChatRoomIdRouteImport.update({
-  id: '/chat/$roomId',
-  path: '/chat/$roomId',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -63,20 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/authorize': typeof AuthorizeRoute
   '/registration': typeof RegistrationRoute
-  '/chat/$roomId': typeof ChatRoomIdRoute
   '/products/$productId': typeof ProductsProductIdRoute
-  '/chat': typeof ChatIndexRoute
-  '/graphql': typeof GraphqlIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/authorize': typeof AuthorizeRoute
   '/registration': typeof RegistrationRoute
-  '/chat/$roomId': typeof ChatRoomIdRoute
   '/products/$productId': typeof ProductsProductIdRoute
-  '/chat': typeof ChatIndexRoute
-  '/graphql': typeof GraphqlIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 export interface FileRoutesById {
@@ -84,10 +60,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/authorize': typeof AuthorizeRoute
   '/registration': typeof RegistrationRoute
-  '/chat/$roomId': typeof ChatRoomIdRoute
   '/products/$productId': typeof ProductsProductIdRoute
-  '/chat/': typeof ChatIndexRoute
-  '/graphql/': typeof GraphqlIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 export interface FileRouteTypes {
@@ -96,30 +69,21 @@ export interface FileRouteTypes {
     | '/'
     | '/authorize'
     | '/registration'
-    | '/chat/$roomId'
     | '/products/$productId'
-    | '/chat'
-    | '/graphql'
     | '/products'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/authorize'
     | '/registration'
-    | '/chat/$roomId'
     | '/products/$productId'
-    | '/chat'
-    | '/graphql'
     | '/products'
   id:
     | '__root__'
     | '/'
     | '/authorize'
     | '/registration'
-    | '/chat/$roomId'
     | '/products/$productId'
-    | '/chat/'
-    | '/graphql/'
     | '/products/'
   fileRoutesById: FileRoutesById
 }
@@ -127,10 +91,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthorizeRoute: typeof AuthorizeRoute
   RegistrationRoute: typeof RegistrationRoute
-  ChatRoomIdRoute: typeof ChatRoomIdRoute
   ProductsProductIdRoute: typeof ProductsProductIdRoute
-  ChatIndexRoute: typeof ChatIndexRoute
-  GraphqlIndexRoute: typeof GraphqlIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
@@ -164,32 +125,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/graphql/': {
-      id: '/graphql/'
-      path: '/graphql'
-      fullPath: '/graphql'
-      preLoaderRoute: typeof GraphqlIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat/': {
-      id: '/chat/'
-      path: '/chat'
-      fullPath: '/chat'
-      preLoaderRoute: typeof ChatIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/products/$productId': {
       id: '/products/$productId'
       path: '/products/$productId'
       fullPath: '/products/$productId'
       preLoaderRoute: typeof ProductsProductIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chat/$roomId': {
-      id: '/chat/$roomId'
-      path: '/chat/$roomId'
-      fullPath: '/chat/$roomId'
-      preLoaderRoute: typeof ChatRoomIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -199,10 +139,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthorizeRoute: AuthorizeRoute,
   RegistrationRoute: RegistrationRoute,
-  ChatRoomIdRoute: ChatRoomIdRoute,
   ProductsProductIdRoute: ProductsProductIdRoute,
-  ChatIndexRoute: ChatIndexRoute,
-  GraphqlIndexRoute: GraphqlIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }
 export const routeTree = rootRouteImport

@@ -10,7 +10,7 @@ function HomeComponent() {
       <input
         type="text"
         placeholder="Find Products"
-        className=" left-1/2 mt-20 w-3/4 h-14 px-3.5 py-4 border rounded-sm border-gray-400 focus:border-blue-400 focus:outline-none focus:border-2 hover:border-black "
+        className=" left-1/2 mt-12 w-3/4 h-14 px-3.5 py-4 border rounded-sm border-gray-400 focus:border-blue-400 focus:outline-none focus:border-2 hover:border-black "
       />
     </form>
   );
