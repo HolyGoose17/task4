@@ -20,7 +20,7 @@
 
 @theme {
   --color-blue: #90caf9;
-  --color-blue-hover: rgba(27, 27, 201, 0.5);
+  --color-blue-hover: rgba(27, 27, 201, 0.2);
   --color-secondary: #85e942;
   --color-bgc: #f5f5f5;
   --color-shadow: rgba(0, 0, 0, 0.04);

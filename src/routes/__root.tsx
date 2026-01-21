@@ -58,7 +58,7 @@ function Layout() {
             </>
           ) : (
             <>
-              <Button variant="secondary" size="sm" onClick={() => navigate({ to: '/authorize' })}>
+              <Button variant="outline" size="sm" onClick={() => navigate({ to: '/authorize' })}>
                 LOG IN
               </Button>
               <Button

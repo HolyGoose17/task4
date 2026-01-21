@@ -41,10 +41,7 @@ export const ProductsCard = ({ product }: ProductCardProps) => {
               ))}
             </div>
           </div>
-          <CardButton
-            productId={product.id}
-            onAddToCart={() => console.log('Добавить в корзину')}
-          />
+          <CardButton productId={product.id} />
         </div>
       </div>
     </>

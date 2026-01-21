@@ -12,16 +12,3 @@ export interface IProduct {
   tags: string[];
   rating: number;
 }
-
-export interface ICart {
-  id: number;
-  title: string;
-  price: number;
-  thumbnail: string;
-  quantity: number;
-}
-
-export interface IUser {
-  username: string;
-  password: string;
-}

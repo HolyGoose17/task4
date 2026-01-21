@@ -21,7 +21,7 @@ export const Button = ({
 
     secondary: 'bg-secondary text-black hover:opacity-90 shadow-btn rounded-sm',
 
-    outline: 'border border-black text-black hover:bg-gray-200 rounded-sm',
+    outline: 'border border-black text-black hover:bg-blue-hover rounded-sm',
 
     ghost: 'text-blue-400 hover:bg-gray-100 rounded-md',
 
