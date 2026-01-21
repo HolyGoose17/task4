@@ -12,3 +12,11 @@ export interface IProduct {
   tags: string[];
   rating: number;
 }
+
+export interface IIRegistrationForm {
+  login: string;
+  email: string;
+  phone: string;
+  password: string;
+  repeatPassword: string;
+}

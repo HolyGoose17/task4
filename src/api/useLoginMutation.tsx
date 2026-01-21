@@ -1,6 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-import type { IUser } from '../utils/types';
+interface IUser {
+  username: string;
+  password: string;
+}
 
 interface ILoginResponse {
   accessToken: string;
