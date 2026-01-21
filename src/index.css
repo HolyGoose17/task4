@@ -1,11 +1,10 @@
 @import "tailwindcss";
 
-/* FONTS */
 @layer base { html { font-family: 'Fira Code', Helvetica, Arial, sans-serif; } }
 
 @font-face {
     font-family: 'Fira Code';
-    src: url('./fonts/FiraCode-Regular.woff2') format('woff2');
+    src: url('./assets/FiraCode-Regular.woff2') format('woff2');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -13,7 +12,7 @@
 
 @font-face {
     font-family: 'Fira Code';
-    src: url('./fonts/FiraCode-Bold.woff2') format('woff2');
+    src: url('./assets/FiraCode-Bold.woff2') format('woff2');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -22,7 +21,7 @@
 @theme {
   --color-blue: #90caf9;
   --color-blue-hover: rgba(27, 27, 201, 0.5);
-  --color-secondary: #ffb74d;
+  --color-secondary: #85e942;
   --color-bgc: #f5f5f5;
   --color-shadow: rgba(0, 0, 0, 0.04);
   --shadow-head: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);
@@ -31,15 +30,16 @@
   --text-md: 15px
 }
 
-*,
- ::before,
- ::after {
-  animation-duration: 0.01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: 0.25s !important;
-  scroll-behavior: auto !important;
+a,
+a:link,
+a:visited {
+  text-decoration: none;
+  color: black;
 }
 
+a:hover {
+  text-decoration: none;
+}
 :root {
   line-height: 1.5;
   font-weight: 400;

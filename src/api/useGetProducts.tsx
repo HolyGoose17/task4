@@ -1,15 +1,21 @@
 import { useQuery } from '@tanstack/react-query';
 
-import type { IProduct, IProductResponse } from '../types/types';
+import type { IProduct } from '../utils/types';
+
+interface IProductResponse {
+  limit: number;
+  products: IProduct[];
+  skip: number;
+  total: number;
+}
 
 export const useGetProducts = () => {
-  const { data, isLoading, isError } = useQuery<IProduct[]>({
+  return useQuery<IProduct[]>({
     queryKey: ['products'],
     queryFn: async () => {
-      const res = await fetch('https://dummyjson.com/products');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/products`);
       const data: IProductResponse = await res.json();
       return data.products;
     },
   });
-  return { data, isLoading, isError };
 };

@@ -1,6 +1,7 @@
 import js from '@eslint/js'
 import globals from 'globals'
 import tseslint from 'typescript-eslint'
+import eslintTailwind from 'eslint-plugin-tailwindcss'
 
 import eslintReact from 'eslint-plugin-react'
 import eslintReactHooks from 'eslint-plugin-react-hooks'
@@ -39,14 +40,18 @@ export default defineConfig([
       'react-refresh': eslintReactRefresh,
       'simple-import-sort': eslintSimpleSort,
       prettier: prettierPlugin,
+      tailwindcss: eslintTailwind,
     },
-
     rules: {
       ...eslintReact.configs.recommended.rules,
       ...eslintReactHooks.configs.recommended.rules,
 
       'react/react-in-jsx-scope': 'off',
       'react/no-unescaped-entities': 'off',
+
+      ...eslintTailwind.configs['flat/recommended'].rules,
+
+      'tailwindcss/no-contradicting-classname': 'error',
 
       'react-refresh/only-export-components': [
         'warn',

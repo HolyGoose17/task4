@@ -8,60 +8,69 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as RegistrationRouteImport } from './routes/registration'
-import { Route as AuthorizeRouteImport } from './routes/authorize'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProductsIndexRouteImport } from './routes/products/index'
-import { Route as ProductsProductIdRouteImport } from './routes/products/$productId'
+import { createFileRoute } from '@tanstack/react-router'
 
-const RegistrationRoute = RegistrationRouteImport.update({
+import { Route as rootRouteImport } from './routes/__root'
+
+const RegistrationLazyRouteImport = createFileRoute('/registration')()
+const AuthorizeLazyRouteImport = createFileRoute('/authorize')()
+const IndexLazyRouteImport = createFileRoute('/')()
+const ProductsIndexLazyRouteImport = createFileRoute('/products/')()
+const ProductsProductIdLazyRouteImport = createFileRoute(
+  '/products/$productId',
+)()
+
+const RegistrationLazyRoute = RegistrationLazyRouteImport.update({
   id: '/registration',
   path: '/registration',
   getParentRoute: () => rootRouteImport,
-} as any)
-const AuthorizeRoute = AuthorizeRouteImport.update({
+} as any).lazy(() => import('./routes/registration.lazy').then((d) => d.Route))
+const AuthorizeLazyRoute = AuthorizeLazyRouteImport.update({
   id: '/authorize',
   path: '/authorize',
   getParentRoute: () => rootRouteImport,
-} as any)
-const IndexRoute = IndexRouteImport.update({
+} as any).lazy(() => import('./routes/authorize.lazy').then((d) => d.Route))
+const IndexLazyRoute = IndexLazyRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsIndexRoute = ProductsIndexRouteImport.update({
+} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+const ProductsIndexLazyRoute = ProductsIndexLazyRouteImport.update({
   id: '/products/',
   path: '/products/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsProductIdRoute = ProductsProductIdRouteImport.update({
+} as any).lazy(() =>
+  import('./routes/products/index.lazy').then((d) => d.Route),
+)
+const ProductsProductIdLazyRoute = ProductsProductIdLazyRouteImport.update({
   id: '/products/$productId',
   path: '/products/$productId',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any).lazy(() =>
+  import('./routes/products/$productId.lazy').then((d) => d.Route),
+)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/authorize': typeof AuthorizeRoute
-  '/registration': typeof RegistrationRoute
-  '/products/$productId': typeof ProductsProductIdRoute
-  '/products': typeof ProductsIndexRoute
+  '/': typeof IndexLazyRoute
+  '/authorize': typeof AuthorizeLazyRoute
+  '/registration': typeof RegistrationLazyRoute
+  '/products/$productId': typeof ProductsProductIdLazyRoute
+  '/products': typeof ProductsIndexLazyRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/authorize': typeof AuthorizeRoute
-  '/registration': typeof RegistrationRoute
-  '/products/$productId': typeof ProductsProductIdRoute
-  '/products': typeof ProductsIndexRoute
+  '/': typeof IndexLazyRoute
+  '/authorize': typeof AuthorizeLazyRoute
+  '/registration': typeof RegistrationLazyRoute
+  '/products/$productId': typeof ProductsProductIdLazyRoute
+  '/products': typeof ProductsIndexLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/authorize': typeof AuthorizeRoute
-  '/registration': typeof RegistrationRoute
-  '/products/$productId': typeof ProductsProductIdRoute
-  '/products/': typeof ProductsIndexRoute
+  '/': typeof IndexLazyRoute
+  '/authorize': typeof AuthorizeLazyRoute
+  '/registration': typeof RegistrationLazyRoute
+  '/products/$productId': typeof ProductsProductIdLazyRoute
+  '/products/': typeof ProductsIndexLazyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,11 +97,11 @@ export interface FileRouteTypes {
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AuthorizeRoute: typeof AuthorizeRoute
-  RegistrationRoute: typeof RegistrationRoute
-  ProductsProductIdRoute: typeof ProductsProductIdRoute
-  ProductsIndexRoute: typeof ProductsIndexRoute
+  IndexLazyRoute: typeof IndexLazyRoute
+  AuthorizeLazyRoute: typeof AuthorizeLazyRoute
+  RegistrationLazyRoute: typeof RegistrationLazyRoute
+  ProductsProductIdLazyRoute: typeof ProductsProductIdLazyRoute
+  ProductsIndexLazyRoute: typeof ProductsIndexLazyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -101,46 +110,46 @@ declare module '@tanstack/react-router' {
       id: '/registration'
       path: '/registration'
       fullPath: '/registration'
-      preLoaderRoute: typeof RegistrationRouteImport
+      preLoaderRoute: typeof RegistrationLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/authorize': {
       id: '/authorize'
       path: '/authorize'
       fullPath: '/authorize'
-      preLoaderRoute: typeof AuthorizeRouteImport
+      preLoaderRoute: typeof AuthorizeLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
       id: '/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof IndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/': {
       id: '/products/'
       path: '/products'
       fullPath: '/products'
-      preLoaderRoute: typeof ProductsIndexRouteImport
+      preLoaderRoute: typeof ProductsIndexLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/products/$productId': {
       id: '/products/$productId'
       path: '/products/$productId'
       fullPath: '/products/$productId'
-      preLoaderRoute: typeof ProductsProductIdRouteImport
+      preLoaderRoute: typeof ProductsProductIdLazyRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AuthorizeRoute: AuthorizeRoute,
-  RegistrationRoute: RegistrationRoute,
-  ProductsProductIdRoute: ProductsProductIdRoute,
-  ProductsIndexRoute: ProductsIndexRoute,
+  IndexLazyRoute: IndexLazyRoute,
+  AuthorizeLazyRoute: AuthorizeLazyRoute,
+  RegistrationLazyRoute: RegistrationLazyRoute,
+  ProductsProductIdLazyRoute: ProductsProductIdLazyRoute,
+  ProductsIndexLazyRoute: ProductsIndexLazyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

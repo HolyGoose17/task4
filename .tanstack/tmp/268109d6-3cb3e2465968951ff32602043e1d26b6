@@ -4,6 +4,6 @@ export const Route = createFileRoute('/products/$productId')({
   component: RouteComponent,
 })
 
-function RouteComponent() {
+Function RouteComponent() {
   return <div>Hello "/products/$productId"!</div>
 }

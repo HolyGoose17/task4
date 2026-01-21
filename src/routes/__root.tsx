@@ -1,75 +1,115 @@
-import { createRootRoute, Link, Outlet } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { createRootRoute, Link, Outlet, useNavigate } from '@tanstack/react-router';
+import { Suspense, useState } from 'react';
 import { CgDetailsMore } from 'react-icons/cg';
+import { FaChevronLeft } from 'react-icons/fa';
 import { MdOutlineStore } from 'react-icons/md';
+
+import { useAuth } from '../api/useAuth';
+import { Button } from '../modules/Button';
+import { clearUser } from '../utils/auth';
+import { clearToken } from '../utils/jwt';
 
 export const Route = createRootRoute({
   component: Layout,
 });
 
 function Layout() {
-  const [open, setOpen] = useState<boolean>(false);
-  const [auth, setAuth] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const navigate = useNavigate();
+  const { isAuth, user } = useAuth();
 
-  const handleDrawerOpen = () => {
-    setOpen(true);
+  const handleSignOut = () => {
+    clearToken();
+    clearUser();
+    queryClient.setQueryData(['auth-token'], null);
+    queryClient.setQueryData(['auth-user'], null);
+
+    navigate({ to: '/authorize' });
   };
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
   return (
     <>
       <header className="bg-blue flex justify-between items-center h-16 px-12 shadow-head">
         <div className="flex justify-evenly gap-9">
           <button
             className="cursor-pointer w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
-            onClick={handleDrawerOpen}
+            onClick={() => setDrawerOpen(true)}
           >
-            <Link
-              to="/products"
-              className="w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
-            >
-              <CgDetailsMore className=" w-6 h-6" />
-            </Link>
+            <CgDetailsMore className=" w-6 h-6" />
           </button>
 
           <Link
             to="/"
-            className="w-10 h-10 flex justify-center items-center hover:bg-shadow hover:rounded-1/2 border-inherit hover:rounded-full"
+            className="w-10 h-10 flex justify-center items-center border-inherit hover:bg-shadow hover:rounded-1/2 hover:rounded-full"
           >
             <MdOutlineStore className="w-6 h-6 text-gray-600  " />
           </Link>
         </div>
-        <div className="flex justify-evenly gap-4.5">
-          {auth ? (
-            <div className="flex justify-center items-center gap-3">
-              <div>userName</div>
-              <button
-                onClick={() => console.log('Выход')}
-                className="py-1.25 px-3.75 bg-secondary rounded-sm border-inherit  shadow-btn active:bg-gray-400"
-              >
+
+        <div className="flex justify-evenly items-center gap-4.5">
+          {isAuth ? (
+            <>
+              <span className="text-sm">Hello, {user?.name}</span>
+              <Button variant="secondary" size="sm" onClick={handleSignOut}>
                 SIGN OUT
-              </button>
-            </div>
+              </Button>
+            </>
           ) : (
             <>
-              <Link to="/authorize" className="text-sm font-medium tracking-tight">
-                <button className="py-1.5 px-4 border rounded-sm border-black active:bg-gray-400 cursor-pointer">
-                  LOG IN
-                </button>
-              </Link>
-              <Link to="/registration" className="text-sm font-medium tracking-tight ">
-                <button className="py-1.5 px-4 bg-secondary rounded-sm border-inherit  shadow-btn active:bg-gray-400 cursor-pointer">
-                  SIGN UP
-                </button>
-              </Link>
+              <Button variant="secondary" size="sm" onClick={() => navigate({ to: '/authorize' })}>
+                LOG IN
+              </Button>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => navigate({ to: '/registration' })}
+              >
+                SIGN UP
+              </Button>
             </>
           )}
         </div>
       </header>
-      <main>
-        <Outlet />
+      {drawerOpen && (
+        <div className="fixed inset-0 z-40 bg-black/30" onClick={() => setDrawerOpen(false)} />
+      )}
+
+      <aside
+        className={`fixed top-0 left-0 z-50 h-full w-45 bg-white shadow
+          transform transition-transform duration-300
+          ${drawerOpen ? 'translate-x-0.5' : '-translate-x-full'}
+        `}
+      >
+        <button
+          className="flex h-16 items-center justify-start px-4 cursor-pointer hover:bg-shadow"
+          onClick={() => setDrawerOpen(false)}
+        >
+          <FaChevronLeft />
+        </button>
+
+        <button
+          className="block mt-1 px-4 py-3 hover:bg-gray-100 cursor-pointer"
+          onClick={() => {
+            setDrawerOpen(false);
+            navigate({ to: '/products' });
+          }}
+        >
+          Products
+        </button>
+      </aside>
+
+      <main className="pt-16">
+        <Suspense
+          fallback={
+            <div className="mt-10 flex justify-center">
+              <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600" />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </main>
     </>
   );
