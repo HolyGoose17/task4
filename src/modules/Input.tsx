@@ -1,18 +1,25 @@
-interface IInputProps {
-  placeholder: string;
-  type: string;
-  value: string;
-  onChange: (value: string) => void;
+import { forwardRef, InputHTMLAttributes } from 'react';
+
+interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
+  error?: string;
 }
 
-export const Input = ({ placeholder, type, value, onChange }: IInputProps) => {
-  return (
-    <input
-      className="border rounded-sm border-gray-400 focus:border-blue-400 focus:outline-none focus:border-2 hover:border-black w-100 h-14 py-4 px-3.5"
-      placeholder={placeholder}
-      type={type}
-      value={value}
-      onChange={(event) => onChange(event.target.value)}
-    />
-  );
-};
+export const Input = forwardRef<HTMLInputElement, IInputProps>(
+  ({ placeholder, type, error, ...props }, ref) => {
+    return (
+      <>
+        <input
+          {...props}
+          ref={ref}
+          placeholder={placeholder}
+          type={type}
+          className={`border rounded-sm border-gray-400 focus:outline-none focus:border-2 hover:border-black w-full h-14 py-4 px-3.5 
+            ${error ? 'border-red-500 focus:border-red-500' : 'focus:border-blue-400'}`}
+        />
+        {error && <span className="text-red-500 text-xs px-1">{error}</span>}
+      </>
+    );
+  }
+);
+
+Input.displayName = 'Input';

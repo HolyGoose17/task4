@@ -11,25 +11,25 @@
 import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as RegistrationRouteImport } from './routes/registration'
+import { Route as AuthorizeRouteImport } from './routes/authorize'
 
-const RegistrationLazyRouteImport = createFileRoute('/registration')()
-const AuthorizeLazyRouteImport = createFileRoute('/authorize')()
 const IndexLazyRouteImport = createFileRoute('/')()
 const ProductsIndexLazyRouteImport = createFileRoute('/products/')()
 const ProductsProductIdLazyRouteImport = createFileRoute(
   '/products/$productId',
 )()
 
-const RegistrationLazyRoute = RegistrationLazyRouteImport.update({
+const RegistrationRoute = RegistrationRouteImport.update({
   id: '/registration',
   path: '/registration',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/registration.lazy').then((d) => d.Route))
-const AuthorizeLazyRoute = AuthorizeLazyRouteImport.update({
+} as any)
+const AuthorizeRoute = AuthorizeRouteImport.update({
   id: '/authorize',
   path: '/authorize',
   getParentRoute: () => rootRouteImport,
-} as any).lazy(() => import('./routes/authorize.lazy').then((d) => d.Route))
+} as any)
 const IndexLazyRoute = IndexLazyRouteImport.update({
   id: '/',
   path: '/',
@@ -52,23 +52,23 @@ const ProductsProductIdLazyRoute = ProductsProductIdLazyRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
-  '/authorize': typeof AuthorizeLazyRoute
-  '/registration': typeof RegistrationLazyRoute
+  '/authorize': typeof AuthorizeRoute
+  '/registration': typeof RegistrationRoute
   '/products/$productId': typeof ProductsProductIdLazyRoute
   '/products': typeof ProductsIndexLazyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
-  '/authorize': typeof AuthorizeLazyRoute
-  '/registration': typeof RegistrationLazyRoute
+  '/authorize': typeof AuthorizeRoute
+  '/registration': typeof RegistrationRoute
   '/products/$productId': typeof ProductsProductIdLazyRoute
   '/products': typeof ProductsIndexLazyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexLazyRoute
-  '/authorize': typeof AuthorizeLazyRoute
-  '/registration': typeof RegistrationLazyRoute
+  '/authorize': typeof AuthorizeRoute
+  '/registration': typeof RegistrationRoute
   '/products/$productId': typeof ProductsProductIdLazyRoute
   '/products/': typeof ProductsIndexLazyRoute
 }
@@ -98,8 +98,8 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
-  AuthorizeLazyRoute: typeof AuthorizeLazyRoute
-  RegistrationLazyRoute: typeof RegistrationLazyRoute
+  AuthorizeRoute: typeof AuthorizeRoute
+  RegistrationRoute: typeof RegistrationRoute
   ProductsProductIdLazyRoute: typeof ProductsProductIdLazyRoute
   ProductsIndexLazyRoute: typeof ProductsIndexLazyRoute
 }
@@ -110,14 +110,14 @@ declare module '@tanstack/react-router' {
       id: '/registration'
       path: '/registration'
       fullPath: '/registration'
-      preLoaderRoute: typeof RegistrationLazyRouteImport
+      preLoaderRoute: typeof RegistrationRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/authorize': {
       id: '/authorize'
       path: '/authorize'
       fullPath: '/authorize'
-      preLoaderRoute: typeof AuthorizeLazyRouteImport
+      preLoaderRoute: typeof AuthorizeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -146,8 +146,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
-  AuthorizeLazyRoute: AuthorizeLazyRoute,
-  RegistrationLazyRoute: RegistrationLazyRoute,
+  AuthorizeRoute: AuthorizeRoute,
+  RegistrationRoute: RegistrationRoute,
   ProductsProductIdLazyRoute: ProductsProductIdLazyRoute,
   ProductsIndexLazyRoute: ProductsIndexLazyRoute,
 }

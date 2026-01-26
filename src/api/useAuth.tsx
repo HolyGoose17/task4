@@ -8,14 +8,14 @@ export const useAuth = () => {
     queryKey: ['auth-token'],
     queryFn: getToken,
     initialData: getToken(),
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 10,
   });
 
   const { data: user } = useQuery({
     queryKey: ['auth-user'],
     queryFn: getUser,
     initialData: getUser(),
-    staleTime: Infinity,
+    staleTime: 1000 * 60 * 10,
   });
 
   return {

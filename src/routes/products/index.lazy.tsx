@@ -14,9 +14,12 @@ function ProductsListPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const { data, isLoading, isError } = useGetProducts();
 
-  const categories = Array.from(new Set(data?.map((prod) => prod.category)));
+  const categories = Array.from(new Set(data?.map((prod) => prod.category) ?? []));
 
   const { data: productsByCategory } = useGetProductByCategory(selectedCategory || undefined);
+
+  const productsToRender =
+    selectedCategory && productsByCategory ? productsByCategory : (data ?? []);
 
   if (isError) {
     return <div className="mt-8 text-center text-red-600">Error loading products</div>;
@@ -35,7 +38,7 @@ function ProductsListPage() {
             onSelect={setSelectedCategory}
           />
           <div className="flex flex-wrap justify-center gap-4 mb-7.5">
-            {productsByCategory?.map((product) => (
+            {productsToRender?.map((product) => (
               <ProductsCard product={product} key={product.id} />
             ))}
           </div>

@@ -26,6 +26,7 @@ dist-ssr
 *.sw?
 
 changes.diff
+review.diff
 
 .env
 .env.local
