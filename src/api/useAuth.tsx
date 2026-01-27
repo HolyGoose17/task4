@@ -8,6 +8,7 @@ export const useAuth = () => {
     queryKey: ['auth-token'],
     queryFn: getToken,
     initialData: getToken(),
+
     staleTime: 1000 * 60 * 10,
   });
 
@@ -15,6 +16,7 @@ export const useAuth = () => {
     queryKey: ['auth-user'],
     queryFn: getUser,
     initialData: getUser(),
+
     staleTime: 1000 * 60 * 10,
   });
 

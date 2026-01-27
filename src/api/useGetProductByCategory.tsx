@@ -11,6 +11,7 @@ export const useGetProductByCategory = (category?: string) => {
       const url = category
         ? `${import.meta.env.VITE_API_URL}/products/category/${category}`
         : `${import.meta.env.VITE_API_URL}/products`;
+
       const res = await fetch(url);
       const json = await res.json();
       const parsed = ProductsResponseSchema.safeParseAsync(json);

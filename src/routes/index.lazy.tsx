@@ -59,7 +59,7 @@ function HomeComponent() {
 
           <button
             onClick={prevSlide}
-            className="absolute top-1/2 -left-4 md:-left-12 z-30 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm"
+            className="cursor-pointer absolute top-1/2 -left-4 md:-left-12 z-30 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -73,7 +73,7 @@ function HomeComponent() {
 
           <button
             onClick={nextSlide}
-            className="absolute top-1/2 -right-4 md:-right-12 z-30 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm"
+            className="cursor-pointer absolute top-1/2 -right-4 md:-right-12 z-30 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-all backdrop-blur-sm"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m9 5 7 7-7 7" />
