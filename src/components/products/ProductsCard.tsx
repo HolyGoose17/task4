@@ -1,8 +1,8 @@
 import { CardButton } from '../../modules/CardButton';
-import type { IProduct } from '../../utils/types';
+import type { Product } from '../../utils/types';
 
 interface ProductCardProps {
-  product: IProduct;
+  product: Product;
 }
 
 export const ProductsCard = ({ product }: ProductCardProps) => {

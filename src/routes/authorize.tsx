@@ -24,11 +24,15 @@ export const Route = createFileRoute('/authorize')({
 });
 
 const AuthFormSchema = z.object({
-  username: z.string().min(5, 'Invalid login').max(10, 'Login is too long. It is correct?').trim(),
+  username: z
+    .string()
+    .min(4, 'Login is too short')
+    .max(20, 'Login is too long. It is correct?')
+    .trim(),
   password: z
     .string()
-    .min(9, 'Password is too short')
-    .max(20, 'Password is too long. Are you sure, you submit correct password?')
+    .min(6, 'Password is too short')
+    .max(24, 'Password is too long. Are you sure, you submit correct password?')
     .trim(),
 });
 
@@ -90,13 +94,13 @@ function AuthorizePage() {
               type={type}
               placeholder={placeholder}
               error={errors[name]?.message}
-              {...register(name, { required: `${placeholder} is required` })}
+              {...register(name)}
             />
           ))}
 
           {isError && <div className="text-red-500 text-center">Invalid login or password</div>}
 
-          <Button variant="primary" size="lg">
+          <Button variant="primary" size="lg" type="submit">
             SIGN IN
           </Button>
         </form>

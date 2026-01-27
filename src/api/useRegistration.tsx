@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 
-import type { RegistrationForm } from '../utils/types';
+import { type RegistrationForm } from '../utils/types';
 
 export const useRegistration = () => {
   return useMutation({
@@ -12,7 +12,10 @@ export const useRegistration = () => {
       });
 
       if (!res.ok) throw new Error('Failed registration');
-      return res.json();
+
+      const json = await res.json();
+
+      return json;
     },
   });
 };

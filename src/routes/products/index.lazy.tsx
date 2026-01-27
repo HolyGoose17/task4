@@ -24,6 +24,7 @@ function ProductsListPage() {
   if (isError) {
     return <div className="mt-8 text-center text-red-600">Error loading products</div>;
   }
+
   return (
     <div className=" mt-14 flex flex-wrap items-center justify-center gap-2">
       {isLoading ? (

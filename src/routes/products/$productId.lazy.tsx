@@ -20,11 +20,11 @@ function ProductDetailsPage() {
   return (
     <>
       {isLoading ? (
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-18">
           <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-300 border-t-blue-600" />
         </div>
       ) : (
-        <div className="mx-auto my-6 w-[70%] px-2">
+        <div className=" mt-30 mx-auto my-6 w-[70%] px-2">
           <div className="flex flex-col overflow-hidden rounded-2xl border-inherit bg-white shadow-btn md:flex-row">
             <img
               src={data?.thumbnail}

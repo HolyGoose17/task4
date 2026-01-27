@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import { createFileRoute, redirect, useNavigate } from '@tanstack/react-router';
 import { useForm } from 'react-hook-form';
 
@@ -5,7 +6,7 @@ import { useRegistration } from '../api/useRegistration';
 import { auth } from '../app/auth';
 import { Button } from '../modules/Button';
 import { Input } from '../modules/Input';
-import type { RegistrationForm } from '../utils/types';
+import { type RegistrationForm, RegistrationSchema } from '../utils/types';
 
 export const Route = createFileRoute('/registration')({
   beforeLoad: () => {
@@ -39,9 +40,9 @@ function RouteComponent() {
   const {
     register,
     handleSubmit,
-    getValues,
     formState: { errors },
   } = useForm<RegistrationForm>({
+    resolver: zodResolver(RegistrationSchema),
     defaultValues: {
       login: '',
       email: '',
@@ -50,29 +51,6 @@ function RouteComponent() {
       repeatPassword: '',
     },
   });
-
-  const validationRules = {
-    login: { required: 'This field is required' },
-    email: {
-      required: 'This field is required',
-      pattern: {
-        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-        message: 'Invalid email address',
-      },
-    },
-    phone: {
-      required: 'This field is required',
-      pattern: {
-        value: /^\+?[1-9][0-9]{7,14}$/,
-        message: 'Invalid phone number',
-      },
-    },
-    password: { required: 'This field is required' },
-    repeatPassword: {
-      required: 'This field is required',
-      validate: (value: string) => value === getValues('password') || 'Passwords do not match',
-    },
-  };
 
   const onSubmit = (data: RegistrationForm) => {
     registration(data, {
@@ -95,7 +73,7 @@ function RouteComponent() {
               type={type}
               placeholder={placeholder}
               error={errors[name]?.message}
-              {...register(name, validationRules[name])}
+              {...register(name)}
             />
           ))}
 

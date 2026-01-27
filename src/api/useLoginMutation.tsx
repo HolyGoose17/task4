@@ -1,17 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-interface IUser {
-  username: string;
-  password: string;
-}
+import { type LoginResponse, LoginResponseScheme, type User } from '../utils/types';
 
-interface ILoginResponse {
-  accessToken: string;
-  id: number;
-  username: string;
-}
 export const useLoginMutation = () => {
-  return useMutation<ILoginResponse, Error, IUser>({
+  return useMutation<LoginResponse, Error, User>({
     mutationFn: async (body) => {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/auth/login`, {
         method: 'POST',
@@ -22,8 +14,9 @@ export const useLoginMutation = () => {
       if (!res.ok) {
         throw new Error('Login failed');
       }
+      const json = await res.json();
 
-      return res.json();
+      return LoginResponseScheme.parse(json);
     },
   });
 };
