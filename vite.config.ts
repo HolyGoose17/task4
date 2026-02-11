@@ -5,6 +5,9 @@ import { defineConfig } from 'vite';
 
 // https://vite.dev/config/
 export default defineConfig({
+  optimizeDeps: {
+    include: ['react-icons/md', 'react-icons/fa', 'react-icons/cg'],
+  },
   server: {
     watch: {
       usePolling: false,

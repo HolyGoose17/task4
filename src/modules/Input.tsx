@@ -1,5 +1,4 @@
-import type { InputHTMLAttributes } from 'react';
-import { forwardRef } from 'react';
+import { forwardRef, type InputHTMLAttributes } from 'react';
 
 interface IInputProps extends InputHTMLAttributes<HTMLInputElement> {
   error?: string;
